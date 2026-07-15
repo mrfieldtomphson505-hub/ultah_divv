@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>adaa amplop nihh (●'◡'●) </title>
+<style>
+  html, body{
+    height:100%;
+    margin:0;
+  }
+  body {
+    background: #323641;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .buka-text{
+    position:absolute;
+    top:calc(50% - 140px);
+    left:50%;
+    transform:translateX(-50%);
+    color:#f2c9c7;
+    font-family:'Segoe UI', sans-serif;
+    font-size:15px;
+    letter-spacing:1px;
+    opacity:0.8;
+  }
+
+  a.letter-link{
+    text-decoration:none;
+  }
+
+  .letter-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+  .animated-mail {
+    position: absolute;
+    height: 150px;
+    width: 200px;
+    transition: .4s;
+  }
+
+  .animated-mail .body {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 100px 200px;
+    border-color: transparent transparent #e95f55 transparent;
+    z-index: 2;
+  }
+
+  .animated-mail .top-fold {
+    position: absolute;
+    top: 50px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 50px 100px 0 100px;
+    transform-origin: 50% 0%;
+    transition: transform .4s .4s, z-index .2s .4s;
+    border-color: #cf4a43 transparent transparent transparent;
+    z-index: 2;
+  }
+
+  .animated-mail .back-fold {
+    position: absolute;
+    bottom: 0;
+    width: 200px;
+    height: 100px;
+    background: #cf4a43;
+    z-index: 0;
+  }
+
+  .animated-mail .left-fold {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 50px 0 50px 100px;
+    border-color: transparent transparent transparent #e15349;
+    z-index: 2;
+  }
+
+  .animated-mail .letter {
+    left: 20px;
+    bottom: 0px;
+    position: absolute;
+    width: 160px;
+    height: 60px;
+    background: white;
+    z-index: 1;
+    overflow: hidden;
+    transition: .4s .2s;
+  }
+
+  .animated-mail .letter .letter-border {
+    height: 10px;
+    width: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      #cb5a5e,
+      #cb5a5e 8px,
+      transparent 8px,
+      transparent 18px
+    );
+  }
+
+  .animated-mail .letter .letter-title {
+    margin-top: 10px;
+    margin-left: 5px;
+    height: 10px;
+    width: 40%;
+    background: #cb5a5e;
+  }
+
+  .animated-mail .letter .letter-context {
+    margin-top: 10px;
+    margin-left: 5px;
+    height: 10px;
+    width: 20%;
+    background: #cb5a5e;
+  }
+
+  .animated-mail .letter .letter-stamp {
+    margin-top: 30px;
+    margin-left: 120px;
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+    background: #cb5a5e;
+    opacity: 0.3;
+  }
+
+  .shadow {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    width: 400px;
+    height: 30px;
+    transition: .4s;
+    transform: translateX(-50%);
+    border-radius: 100%;
+    background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.0), rgba(0,0,0,0.0));
+  }
+
+  .letter-image:hover .animated-mail {
+    transform: translateY(50px);
+  }
+
+  .letter-image:hover .animated-mail .top-fold {
+    transition: transform .4s, z-index .2s;
+    transform: rotateX(180deg);
+    z-index: 0;
+  }
+
+  .letter-image:hover .animated-mail .letter {
+    height: 180px;
+  }
+
+  .letter-image:hover .shadow {
+    width: 250px;
+  }
+
+  .letter-image.opened .animated-mail {
+  transform: translateY(-30px) scale(1.05);
+}
+
+.letter-image.opened .animated-mail .top-fold {
+  transition: transform .4s, z-index .2s;
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.letter-image.opened .animated-mail .letter {
+  height: 200px;
+  transition: height .4s .2s, transform .5s .5s;
+  transform: translateY(-25px);
+}
+
+.letter-image.opened .shadow {
+  width: 180px;
+  opacity: 0.5;
+}
+
+.letter-image.opened {
+  animation: melayang .6s ease .6s forwards;
+}
+
+@keyframes melayang {
+  0%   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.15) translateY(-60px); opacity: 0; }
+}
+
+.buka-text{
+  transition: opacity .3s;
+}
+.buka-text.hide{
+  opacity: 0;
+}
+
+.pesawat{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1) rotate(-20deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: none;
+  z-index: 10;
+}
+
+.pesawat.terbang{
+  animation: terbangKeluar 1s ease-in forwards;
+}
+
+@keyframes terbangKeluar{
+  0%{
+    transform: translate(-50%, -50%) scale(0.5) rotate(-20deg);
+    opacity: 1;
+  }
+  100%{
+    transform: translate(400px, -400px) scale(0.2) rotate(15deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+  <div class="buka-text">klik amplopnya ✨</div>
+
+  <a class="letter-link" href="ucapan-ultah.html">
+    <div class="letter-image">
+      <div class="animated-mail">
+        <div class="back-fold"></div>
+        <div class="letter">
+          <div class="letter-border"></div>
+          <div class="letter-title"></div>
+          <div class="letter-context"></div>
+          <div class="letter-stamp">
+            <div class="letter-stamp-inner"></div>
+          </div>
+        </div>
+        <div class="top-fold"></div>
+        <div class="body"></div>
+        <div class="left-fold"></div>
+      </div>
+      <div class="shadow"></div>
+    </div>
+  </a>
+
+  <div class="pesawat">
+  <svg viewBox="0 0 24 24" width="80" height="80" fill="none" stroke="#ffe5e0" stroke-width="1.5">
+    <path d="M22 2L11 13" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M22 2L15 22L11 13L2 9L22 2Z" fill="#e95f55" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+ <script>
+  const link = document.querySelector('.letter-link');
+  const envelope = document.querySelector('.letter-image');
+  const teks = document.querySelector('.buka-text');
+  const suaraKlik = new Audio('klik.mp3');
+suaraKlik.volume = 0.7;
+
+ link.addEventListener('click', function(e){
+  e.preventDefault();
+  if(envelope.classList.contains('opened')) return;
+
+suaraKlik.currentTime = 0;
+suaraKlik.play().catch(() => {});
+
+  const pesawat = document.querySelector('.pesawat');
+
+  envelope.classList.add('opened');
+  teks.classList.add('hide');
+
+  setTimeout(function(){
+    envelope.style.opacity = '0';
+    envelope.style.transition = 'opacity .3s';
+    pesawat.classList.add('terbang');
+  }, 500);
+
+  const tujuan = link.getAttribute('href');
+  setTimeout(function(){
+    window.location.href = tujuan;
+  }, 1700);
+});
+</script>
+<script>
+   // script amplop
+</script>
+
+<script src="audio.js"></script>
+</body>
+</html>

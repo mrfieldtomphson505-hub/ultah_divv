@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HBD nyakk🎉🎉</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;1,500&family=Inter:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg1:#22252c;
+    --bg2:#181a1f;
+    --paper:#f1e6d3;
+    --paper2:#ece0ca;
+    --ink:#3d3327;
+    --ink-soft:#7a6d5a;
+    --accent:#c85a4e;
+    --accent-deep:#8f382f;
+    --tape:#d9cca4;
+  }
+
+  /* ============ GANTI NAMA & FOTO DI SINI ============ */
+  /* nama: edit variabel `nama` di bagian <script> paling bawah */
+  /* foto: ganti file foto1.jpg di folder yang sama */
+
+  *{ box-sizing:border-box; }
+
+  html, body{ height:100%; }
+
+  body{
+    margin:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.04), transparent 55%),
+      linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 100%);
+    font-family:'Inter', sans-serif;
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* ==== catatan/kartu berbentuk kertas, ditumpuk kayak beneran ada di meja ==== */
+  .note-wrap{
+    position:relative;
+    width:380px;
+    max-width:88vw;
+  }
+
+  .note-wrap::before,
+  .note-wrap::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:var(--paper2);
+    border-radius:3px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  }
+  .note-wrap::before{ transform:rotate(-4deg); z-index:0; }
+  .note-wrap::after{ transform:rotate(3deg); z-index:0; opacity:0.85; }
+
+  .note{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:3px;
+    padding:34px 32px 38px;
+    transform:rotate(-1deg);
+    box-shadow:0 18px 40px rgba(0,0,0,0.4);
+  }
+
+  /* ==== foto ditempel pakai selotip, bukan polaroid pile ==== */
+  .foto-tempel{
+    position:relative;
+    width:150px;
+    margin:0 auto 22px;
+    transform:rotate(-3deg);
+  }
+
+  .foto-tempel img,
+  .foto-tempel .foto-kosong{
+    display:block;
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    background:#d8cdb4;
+    border:6px solid #fffdf8;
+    box-shadow:0 8px 18px rgba(0,0,0,0.3);
+  }
+
+  .foto-tempel .foto-kosong{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    color:var(--ink-soft);
+    padding:10px;
+    line-height:1.4;
+  }
+
+  .selotip{
+    position:absolute;
+    top:-10px;
+    left:50%;
+    transform:translateX(-50%) rotate(-5deg);
+    width:60px;
+    height:22px;
+    background:var(--tape);
+    opacity:0.75;
+    box-shadow:0 2px 4px rgba(0,0,0,0.15);
+  }
+
+  .caption{
+    text-align:center;
+    font-family:'Caveat', cursive;
+    font-size:19px;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+
+  .eyebrow{
+    text-align:center;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+
+  h2{
+    text-align:center;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:38px;
+    color:var(--ink);
+    margin:0 0 18px;
+    line-height:1.15;
+  }
+
+  p.pesan{
+    color:var(--ink-soft);
+    font-size:15.5px;
+    line-height:1.75;
+    margin:0 0 26px;
+    text-align:center;
+  }
+
+  .tautan{
+  position:relative;
+  display:block;
+  width:fit-content;
+  margin:8px auto 0;
+  text-align:center;
+  border:none;
+  padding:13px 28px 18px;
+  font-family:'Caveat', cursive;
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:0.3px;
+  color:#4a3a1f;
+  cursor:pointer;
+  transform:rotate(-2deg);
+  background:
+    radial-gradient(circle at 15% 25%, rgba(0,0,0,0.06) 0%, transparent 35%),
+    radial-gradient(circle at 85% 75%, rgba(0,0,0,0.06) 0%, transparent 35%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 3px),
+    #e3cd9c;
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 80%,
+    92% 100%, 84% 80%, 76% 100%, 68% 80%, 60% 100%, 52% 80%,
+    44% 100%, 36% 80%, 28% 100%, 20% 80%, 12% 100%, 4% 80%,
+    0% 100%
+  );
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4));
+  transition: transform .2s ease, filter .2s ease;
+}
+
+.tautan::before{
+  content:'';
+  position:absolute;
+  inset:-3px -5px -8px -5px;
+  background:#c6af7b;
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 80%,
+    92% 100%, 84% 80%, 76% 100%, 68% 80%, 60% 100%, 52% 80%,
+    44% 100%, 36% 80%, 28% 100%, 20% 80%, 12% 100%, 4% 80%,
+    0% 100%
+  );
+  transform:rotate(4deg);
+  z-index:-1;
+}
+
+.tautan span{
+  position:relative;
+  z-index:1;
+}
+
+.tautan:hover{
+  transform:rotate(-1deg) translateY(-3px);
+  filter: drop-shadow(0 12px 16px rgba(0,0,0,0.45));
+}
+  /* ==== reveal bertahap, pelan ==== */
+  .reveal{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  .reveal.show{
+    animation:munculPelan .7s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  @keyframes munculPelan{
+    0%{ opacity:0; transform:translateY(10px); }
+    100%{ opacity:1; transform:translateY(0); }
+  }
+
+  .note-wrap.pergi{
+    animation:pergiPelan .5s ease forwards;
+  }
+  @keyframes pergiPelan{
+    0%{ opacity:1; transform:scale(1) translateY(0); }
+    100%{ opacity:0; transform:scale(0.97) translateY(6px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="note-wrap" id="noteWrap">
+  <div class="note">
+
+    <div class="foto-tempel reveal" id="elFoto">
+      <div class="selotip"></div>
+      <img src="foto1.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="foto-kosong">taruh foto1.jpg di folder ini</div>
+      <div class="caption">hehe :)</div>
+    </div>
+
+    <div class="reveal" id="elJudul">
+      <div class="eyebrow">selamat ulang tahun</div>
+      <h2 id="namaOrang">Nama Kamu</h2>
+    </div>
+
+    <p class="pesan reveal" id="elPesan">
+      HBD nyakk, tahun ini nyentuh berapa nih???🤔, 17? 18? 19? or 20?🧐, wthever lah nyak idc🥱, gitu aja ucapan aing yahh sibuk ni nak nonton film dulu byeeee👌
+    </p>
+
+    <button class="tautan reveal" id="elTombol" onclick="letsGo()"><span>ada berapa foto nichh</span></button>
+
+  </div>
+</div>
+
+<script>
+  const nama = "NULL"; // <-- GANTI NAMA DI SINI
+  document.getElementById('namaOrang').textContent = nama;
+
+  const urutanReveal = ['elFoto','elJudul','elPesan','elTombol'];
+  function tampilkanBertahap(i){
+    if(i >= urutanReveal.length) return;
+    const el = document.getElementById(urutanReveal[i]);
+    if(el) el.classList.add('show');
+    setTimeout(()=>tampilkanBertahap(i+1), 300);
+  }
+  setTimeout(()=>tampilkanBertahap(0), 350);
+
+  function letsGo(){
+    document.getElementById('noteWrap').classList.add('pergi');
+    setTimeout(function(){
+      window.location.href = 'kenangan.html';
+    }, 480);
+  }
+</script>
+<script>
+   // script ucapan
+</script>
+
+<script src="audio.js"></script>
+</body>
+</html>

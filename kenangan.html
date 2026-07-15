@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📸</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&display=swap" rel="stylesheet">
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #14161c;
+    overflow: hidden;
+  }
+
+  .desk {
+    width: 110vw;
+    height: 110vh;
+    left: -5vw;
+    top: -5vh;
+    background: #14161c;
+    overflow: hidden;
+    position: fixed;
+    transition: filter .2s ease;
+  }
+
+  body.full .desk {
+    filter: blur(3px);
+  }
+
+  .photos {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .drag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+  }
+
+  figure {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 2.5vmin;
+    background: #f1e6d3;
+    width: 30vmin;
+    border-radius: .5vmin;
+    box-shadow: 0 0 4vmin rgba(0,0,0,.75), 0 0 .5vmin rgba(0,0,0,.5);
+    font-family: 'Just Another Hand', cursive;
+    font-size: 4vmin;
+    position: absolute;
+    transition: box-shadow .2s ease, filter .2s ease;
+  }
+
+  .active figure {
+    box-shadow: 5vmin 5vmin 4vmin rgba(0,0,0,.75), 0 0 2vmin rgba(0,0,0,.2);
+  }
+
+  figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #dbe9f7;
+    pointer-events: none;
+  }
+
+  figure .foto-kosong {
+    box-sizing: border-box;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background:#d8cdb4 ;
+    color: #185fa5;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 2.2vmin;
+    padding: 1vmin;
+  }
+
+  figure figcaption {
+    text-align: center;
+    pointer-events: none;
+    color: #3d3327;
+    margin-top: 1vmin;
+  }
+
+  body.full .drag:not(.active) figure {
+    filter: blur(3px);
+  }
+
+  .balik{
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:50;
+    background:rgba(200,90,78,0.18);
+    color:#f1e6d3;
+    border:1px solid rgba(200,90,78,0.4);
+    padding:10px 18px;
+    border-radius:999px;
+    font-family:'Segoe UI', sans-serif;
+    font-size:14px;
+    cursor:pointer;
+    backdrop-filter:blur(4px);
+    text-decoration:none;
+    display:inline-block;
+  }
+  .balik:hover{ background:rgba(200,90,78,0.3); }
+
+  .hint{
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    color:rgba(241,230,211,0.45);
+    font-family:'Segoe UI', sans-serif;
+    font-size:13px;
+    z-index:50;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<a class="balik" href="ucapan-ultah.html">← kembali</a>
+<div class="hint">geser foto buat gerakin &nbsp;•&nbsp; pegang pojok buat muter &nbsp;•&nbsp; klik buat perbesar</div>
+
+<div class="desk"></div>
+<div class="photos"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+
+<script>
+  /* ====== GANTI DAFTAR FOTO & CAPTION DI SINI ====== */
+  var daftarFoto = [
+    { src: 'foto1.jpg', caption: 'kenangan 1' },
+    { src: 'foto2.jpg', caption: 'kenangan 2' },
+    { src: 'foto3.jpg', caption: 'kenangan 3' },
+    { src: 'foto4.jpg', caption: 'kenangan 4' },
+    { src: 'foto5.jpg', caption: 'kenangan 5' },
+    { src: 'foto6.jpg', caption: 'kenangan 6' }
+  ];
+
+  buatFoto();
+
+  function buatFoto() {
+    $('.photos').html('');
+    $.each(daftarFoto, function(i, foto){
+      var $drag = $(
+        '<div class="drag" data-i="'+i+'">' +
+          '<figure class="spin">' +
+            '<img src="'+foto.src+'" alt="'+foto.caption+'" ' +
+              'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+            '<div class="foto-kosong">'+foto.src+'</div>' +
+            '<figcaption>'+foto.caption+'</figcaption>' +
+          '</figure>' +
+        '</div>'
+      );
+      $drag.appendTo('.photos');
+    });
+    scatterPhotos();
+  }
+
+  function scatterPhotos() {
+    var board = $('.photos');
+    var drag = $('.drag');
+    var spin = $('.spin');
+
+    $(drag.get().reverse()).each(function(index){
+      gsap.to(this, {
+        duration: .5,
+        delay: index * 0.1,
+        x: getRandomInt(board.width()/3*-1, board.width()/3),
+        y: getRandomInt(board.height()/3*-1, board.height()/3)
+      });
+      gsap.to($(this).find('.spin'), {
+        duration: .5,
+        delay: index * 0.1,
+        rotation: getRandomInt(-30, 30)
+      });
+    });
+
+    Draggable.create(drag, {
+      bounds: board,
+      throwProps: true,
+      edgeResistance: 0,
+      type: 'x,y',
+      zIndexBoost: false,
+      onClick: function() {
+        var $this = $(this.target);
+        if ($this.hasClass('active')) {
+          gsap.to($this, { duration:.2, scale:1, x:$this.attr('data-x'), y:$this.attr('data-y') });
+          gsap.to($this.find('.spin'), { duration:.2, rotation:$this.attr('data-r') });
+          $this.removeClass('active');
+          $('body').removeClass('full');
+        } else {
+          $this.attr('data-x', gsap.getProperty(this.target, 'x'));
+          $this.attr('data-y', gsap.getProperty(this.target, 'y'));
+          $this.attr('data-r', gsap.getProperty($this.find('.spin')[0], 'rotation'));
+
+          gsap.to($this, { duration:.2, scale:2, x:0, y:0 });
+          gsap.to($this.find('.spin'), { duration:.2, rotation:0 });
+
+          var $active = $('.active');
+          if ($active.length) {
+            gsap.to($active, { duration:.2, scale:1, x:$active.attr('data-x'), y:$active.attr('data-y') });
+            gsap.to($active.find('.spin'), { duration:.2, rotation:$active.attr('data-r') });
+          }
+
+          $('.drag.active').removeClass('active');
+          $('body').removeClass('full');
+          $this.addClass('active').appendTo('.photos');
+          $('body').addClass('full');
+        }
+      },
+      onDrag: function(){
+        var $this = $(this.target);
+        gsap.to($this, { duration:.2, scale:1 });
+        $this.removeClass('active');
+        $('body').removeClass('full');
+      },
+      onThrowComplete: function(){
+        var $this = $(this.target);
+        var el = $this.find('.spin')[0];
+        var r = gsap.getProperty(el, 'rotation');
+        if (r > 360 || r < -360) {
+          gsap.set(el, { rotation: r % 360 });
+        }
+      }
+    });
+
+    Draggable.create(spin, {
+      type: 'rotation',
+      throwProps: true,
+      throwResistance: 25000,
+      minDuration: 0
+    });
+  }
+
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+</script>
+<script>
+   // script galeri
+</script>
+
+<script src="audio.js"></script>
+</body>
+</html>
