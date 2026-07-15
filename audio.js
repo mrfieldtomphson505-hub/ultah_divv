@@ -3,7 +3,7 @@
 // ============================
 
 const daftarAudio = {
-    "amplop.html": "amplop.mp3",
+    "index.html": "index.mp3",
     "ucapan-ultah.html": "ultah.mp3",
     "kenangan.html": "ultah.mp3"
 };
@@ -30,6 +30,7 @@ if (lagu) {
     function playAudio() {
         audio.play().catch(() => {});
     }
+     playAudio();
 
     // Browser butuh interaksi user dulu (klik, sentuh, ATAU mulai drag)
     document.addEventListener("click", playAudio, { once: true });
