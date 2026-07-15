@@ -3,7 +3,7 @@
 // ============================
 
 const daftarAudio = {
-    "index.html": "index.mp3",
+    "index.html": "amplop.mp3",
     "ucapan-ultah.html": "ultah.mp3",
     "kenangan.html": "ultah.mp3"
 };
